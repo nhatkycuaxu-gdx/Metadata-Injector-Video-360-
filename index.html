@@ -51,6 +51,21 @@ let ready = false;
 const $ = id =>document.getElementById(id);
 function status(s){$("status").textContent = s;}
 function progress(n){ $("bar").style.width=n+"%";}
+async function initPython(){
+try{pyodide = await loadPyodide();progress(25);const files = PY_FILES;for(const [name,b64] of Object.entries(files)){const parts = name.split("/");parts.pop();let dir = "";
+for(const p of parts){dir += "/" + p;
+try{ pyodide.FS.mkdir(dir); }catch(e){}}
+const bin = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+pyodide.FS.writeFile("/" + name, bin);}progress(65);
+await pyodide.runPythonAsync(`
+import sys
+sys.path.insert(0,"/")
+import spatialmedia
+from spatialmedia import metadata_utils`);
+progress(100);
+ready = true;
+$("inject").disabled = false;
+$("inject").textContent ="INJECT METADATA";status("Sẵn sàng");}catch(e){console.error(e);status("E:/ Không tải được Python(kiểm tra mạng của bạn):\\n" + e);}}
 //Dựa trên mã nguồn mở của: Google
 //thực hiện: Phước Vinh Studio Code YouTube?= www.youtube.com/@phuocvinhstudio
 //Cảm ơn bạn nếu bạn xem mã nguồn vì chứng tỏ bạn quan tâm đến tôi
