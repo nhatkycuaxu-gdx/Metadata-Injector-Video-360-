@@ -30,7 +30,12 @@ a{color:#fff}
 <div class="sub">Thêm Metadata 360° vào video</div><div class="card">
 <label>Video MP4 / MOV</label>
 <input id="file" type="file" accept=".mp4,.mov,video/mp4,video/quicktime">
-
+label>Stereo mode</label>
+<select id="stereo"><option value="none">video 360° mono</option>
+<option value="top-bottom">video 360° stereo 3D dạng trên/dưới</option>
+<option value="left-right">video 360° stereo 3D dạng trái/phải.</option></select>
+<label>Crop(tùy chọn)</label>
+<input id="crop"placeholder="width:height:full_width:full_height:left:top">
 //Dựa trên mã nguồn mở của: Google
 //thực hiện: Phước Vinh Studio Code YouTube?= www.youtube.com/@phuocvinhstudio
 //Cảm ơn bạn nếu bạn xem mã nguồn vì chứng tỏ bạn quan tâm đến tôi
